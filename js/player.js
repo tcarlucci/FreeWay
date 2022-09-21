@@ -15,13 +15,20 @@ function playerMovement() {
         yPlayer -= 2;
     }
     if (keyIsDown(DOWN_ARROW)) {
-        yPlayer += 2;
+        if (canMoveDown()) {
+            yPlayer += 2;
+        }
     }
     if (keyIsDown(LEFT_ARROW)) {
-        xPlayer -= 2;
+        if (canMoveLeft()) {
+            xPlayer -= 2;
+        }
+        
     }
     if (keyIsDown(RIGHT_ARROW)) {
-        xPlayer += 2;
+        if(canMoveRight()){
+            xPlayer += 2;
+        }
     }
 }
 //------------------PLAYER COLLISION------------------------------
@@ -31,10 +38,31 @@ function checkCollision() {
         hit = collideRectCircle(xCars[i], yCars[i], wCars[i], hCars[i], xPlayer, yPlayer, 15);
         if (hit) {
             ranOver();
+            soundHit.play();
+            if (losePoints()) {
+                score -= 1;
+            }
         }
     }
 }
 
 function ranOver() {
     xPlayer = 250, yPlayer = 369;
+    
+}
+
+function losePoints() {
+    return score > 0
+}
+
+function canMoveDown() {
+    return yPlayer < 366;
+}
+
+function canMoveLeft() {
+    return xPlayer > 0;
+}
+
+function canMoveRight() {
+    return xPlayer < 476;
 }

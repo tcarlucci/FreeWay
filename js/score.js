@@ -11,10 +11,11 @@ function addPoints() {
 }
 
 function scorePoint() {
-    if (yPlayer < 10){
-        score ++ 
-        if (score){
+    if (yPlayer < 10) {
+        score++
+        if (score) {
             ranOver();
+            soundScore.play();
         }
     }
 }
